@@ -1,24 +1,15 @@
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { customColors } from "../../../constants/colors";
-import { Dispatch, SetStateAction } from "react";
 
 interface iTeamInfo {
     team: string;
     teamPoints: string;
-    setTeam: Dispatch<SetStateAction<string>>;
-    teamLabel: string;
 }
 
-export function TeamInfo({ team, setTeam, teamLabel, teamPoints }: iTeamInfo) {
+export function TeamInfo({ team, teamPoints }: iTeamInfo) {
     return (
         <Stack justifyContent="center" alignItems="center">
-            <TextField
-                id="outlined-basic"
-                label={teamLabel}
-                size="small"
-                value={team}
-                onChange={(event) => setTeam(event.target.value)}
-            />
+            <Typography variant="h6">{team}</Typography>
 
             <Box
                 display="flex"

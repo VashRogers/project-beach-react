@@ -1,18 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Paper, Typography } from "@mui/material";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { TeamInfo } from "./components/TeamInfo";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import SportsTennisRoundedIcon from "@mui/icons-material/SportsTennisRounded";
 import { SetsTable } from "./components/SetsTable";
 
-export default function Scoreboard() {
-    const [team1, setTeam1] = useState("TIME 1");
-    const [team2, setTeam2] = useState("TIME 2");
+interface iScoreboardProps {
+    team1: string;
+    team2: string;
+    setTeam1: Dispatch<SetStateAction<string>>;
+    setTeam2: Dispatch<SetStateAction<string>>;
+    team1Points: string;
+    team2Points: string;
+    setTeam1Points: Dispatch<SetStateAction<string>>;
+    setTeam2Points: Dispatch<SetStateAction<string>>;
+}
 
-    const [team1Points, setTeam1Points] = useState("00");
-    const [team2Points, setTeam2Points] = useState("00");
-
+export default function Scoreboard({
+    team1,
+    team2,
+    team1Points,
+    team2Points,
+}: iScoreboardProps) {
     const [team1Sets, setTeam1Sets] = useState({
         set1: 0,
         set2: 0,
@@ -44,12 +54,7 @@ export default function Scoreboard() {
                     display="flex"
                     alignItems="center"
                 >
-                    <TeamInfo
-                        teamLabel=""
-                        team={team1}
-                        teamPoints={team1Points}
-                        setTeam={setTeam1}
-                    />
+                    <TeamInfo team={team1} teamPoints={team1Points} />
 
                     <Box
                         display="flex"
@@ -62,21 +67,14 @@ export default function Scoreboard() {
                         <SportsTennisRoundedIcon fontSize="large" />
                     </Box>
 
-                    <TeamInfo
-                        teamLabel=""
-                        team={team2}
-                        teamPoints={team2Points}
-                        setTeam={setTeam2}
-                    />
+                    <TeamInfo team={team2} teamPoints={team2Points} />
                 </Box>
 
                 <Box
                     display="flex"
                     flexGrow={1}
                     justifyContent="center"
-                    // border={1}
                     borderRadius={1}
-                    // borderColor={colors.grey[500]}
                     m={2}
                     p={2}
                 >
