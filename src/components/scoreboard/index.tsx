@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Paper, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { TeamInfo } from "./components/TeamInfo";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import SportsTennisRoundedIcon from "@mui/icons-material/SportsTennisRounded";
@@ -15,6 +14,15 @@ interface iScoreboardProps {
     team2Points: string;
     setTeam1Points: Dispatch<SetStateAction<string>>;
     setTeam2Points: Dispatch<SetStateAction<string>>;
+    team1Sets: teamSets;
+    team2Sets: teamSets;
+}
+export interface teamSets {
+    set1: number;
+    set2: number;
+    set3: number;
+    set4: number;
+    set5: number;
 }
 
 export default function Scoreboard({
@@ -22,23 +30,9 @@ export default function Scoreboard({
     team2,
     team1Points,
     team2Points,
+    team1Sets,
+    team2Sets,
 }: iScoreboardProps) {
-    const [team1Sets, setTeam1Sets] = useState({
-        set1: 0,
-        set2: 0,
-        set3: 0,
-        set4: 0,
-        set5: 0,
-    });
-
-    const [team2Sets, setTeam2Sets] = useState({
-        set1: 0,
-        set2: 0,
-        set3: 0,
-        set4: 0,
-        set5: 0,
-    });
-
     return (
         <Box display="flex" margin={2}>
             <Paper sx={{ flexGrow: 1, justifyContent: "center" }}>
