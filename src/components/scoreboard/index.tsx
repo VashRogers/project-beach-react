@@ -16,6 +16,7 @@ interface iScoreboardProps {
     setTeam2Points: Dispatch<SetStateAction<string>>;
     team1Sets: teamSets;
     team2Sets: teamSets;
+    time: number;
 }
 export interface teamSets {
     set1: number;
@@ -32,7 +33,16 @@ export default function Scoreboard({
     team2Points,
     team1Sets,
     team2Sets,
+    time,
 }: iScoreboardProps) {
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, "0")}:${String(
+            remainingSeconds
+        ).padStart(2, "0")}`;
+    };
+
     return (
         <Box display="flex" margin={2}>
             <Paper sx={{ flexGrow: 1, justifyContent: "center" }}>
@@ -57,6 +67,8 @@ export default function Scoreboard({
                         justifyContent="center"
                         margin={4}
                     >
+                        <Typography variant="h4">{formatTime(time)}</Typography>{" "}
+                        {/* Relógio aqui */}
                         <ClearRoundedIcon fontSize="large" />
                         <SportsTennisRoundedIcon fontSize="large" />
                     </Box>

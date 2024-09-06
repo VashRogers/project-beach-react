@@ -4,6 +4,8 @@ import { TeamField } from "./components/TeamField";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { teamSets } from "../scoreboard";
+import PauseIcon from "@mui/icons-material/Pause";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 interface iControlPanelProps {
     team1: string;
@@ -18,6 +20,8 @@ interface iControlPanelProps {
     setTeam2Points: Dispatch<SetStateAction<string>>;
     team2Sets: teamSets;
     setTeam2Sets: Dispatch<SetStateAction<teamSets>>;
+    time: number;
+    setTime: Dispatch<SetStateAction<number>>;
 }
 
 export default function ControlPanel({
@@ -33,9 +37,37 @@ export default function ControlPanel({
     setTeam2Points,
     team2Sets,
     setTeam2Sets,
+    time,
+    setTime,
 }: iControlPanelProps) {
     const [team1Advantage, setTeam1Advantage] = useState(false);
     const [team2Advantage, setTeam2Advantage] = useState(false);
+    const [isRunning, setIsRunning] = useState(false);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout | undefined; // Inicializando com undefined
+        if (isRunning) {
+            timer = setInterval(() => {
+                setTime((prevTime) => prevTime + 1);
+            }, 1000);
+        } else if (!isRunning && time !== 0 && timer !== undefined) {
+            clearInterval(timer);
+        }
+        return () => clearInterval(timer);
+    }, [isRunning, time]);
+
+    const handleStart = () => {
+        setIsRunning(true);
+    };
+
+    const handlePause = () => {
+        setIsRunning(false);
+    };
+
+    const handleReset = () => {
+        setIsRunning(false);
+        setTime(0);
+    };
 
     useEffect(() => {
         if (team1Points === "40" && team2Points === "40") {
@@ -53,27 +85,38 @@ export default function ControlPanel({
                 setTeam1Advantage(true);
             }
         } else {
-            if (team1Points === "00" || team1Points === "10") {
-                setTeam1Points("20");
-            } else if (team1Points === "20") {
-                setTeam1Points("30");
-            } else if (team1Points === "30") {
-                setTeam1Points("40");
-            } else if (team1Points === "40") {
-                handleTeam1WinSet();
+            switch (team1Points) {
+                case "00":
+                    setTeam1Points("15");
+                    break;
+                case "15":
+                    setTeam1Points("30");
+                    break;
+                case "30":
+                    setTeam1Points("40");
+                    break;
+                case "40":
+                    handleTeam1WinSet();
+                    break;
+                default:
+                    setTeam1Points("00");
             }
         }
     };
 
     const handleRemoveTeam1Points = () => {
-        if (team1Points === "40") {
-            setTeam1Points("30");
-        } else if (team1Points === "30") {
-            setTeam1Points("20");
-        } else if (team1Points === "20") {
-            setTeam1Points("10");
-        } else if (team1Points === "10") {
-            setTeam1Points("00");
+        switch (team1Points) {
+            case "40":
+                setTeam1Points("30");
+                break;
+            case "30":
+                setTeam1Points("15");
+                break;
+            case "15":
+                setTeam1Points("00");
+                break;
+            default:
+                setTeam1Points("00");
         }
     };
 
@@ -87,27 +130,38 @@ export default function ControlPanel({
                 setTeam2Advantage(true);
             }
         } else {
-            if (team2Points === "00" || team2Points === "10") {
-                setTeam2Points("20");
-            } else if (team2Points === "20") {
-                setTeam2Points("30");
-            } else if (team2Points === "30") {
-                setTeam2Points("40");
-            } else if (team2Points === "40") {
-                handleTeam2WinSet();
+            switch (team2Points) {
+                case "00":
+                    setTeam2Points("15");
+                    break;
+                case "15":
+                    setTeam2Points("30");
+                    break;
+                case "30":
+                    setTeam2Points("40");
+                    break;
+                case "40":
+                    handleTeam2WinSet();
+                    break;
+                default:
+                    setTeam2Points("00");
             }
         }
     };
 
     const handleRemoveTeam2Points = () => {
-        if (team2Points === "40") {
-            setTeam2Points("30");
-        } else if (team2Points === "30") {
-            setTeam2Points("20");
-        } else if (team2Points === "20") {
-            setTeam2Points("10");
-        } else if (team2Points === "10") {
-            setTeam2Points("00");
+        switch (team2Points) {
+            case "40":
+                setTeam2Points("30");
+                break;
+            case "30":
+                setTeam2Points("15");
+                break;
+            case "15":
+                setTeam2Points("00");
+                break;
+            default:
+                setTeam2Points("00");
         }
     };
 
@@ -148,6 +202,12 @@ export default function ControlPanel({
         setTeam2Points("00");
         setTeam1Advantage(false);
         setTeam2Advantage(false);
+    };
+
+    const resetAll = () => {
+        resetPointsAndAdvantage();
+        setTeam1Sets({ set1: 0, set2: 0, set3: 0, set4: 0, set5: 0 });
+        setTeam2Sets({ set1: 0, set2: 0, set3: 0, set4: 0, set5: 0 });
     };
 
     return (
@@ -201,7 +261,51 @@ export default function ControlPanel({
                             </Stack>
                         </Stack>
 
-                        <Stack flexGrow={1}></Stack>
+                        <Stack justifyContent="center">
+                            <Button
+                                onClick={resetAll}
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: "#e69200",
+                                    borderRadius: 5,
+                                    margin: 2,
+                                }}
+                            >
+                                Resetar Pontos e Sets
+                            </Button>
+                            {/* Controles do Relógio */}
+                            <Stack
+                                flexDirection="row"
+                                margin={1}
+                                p={1}
+                                justifyContent="space-around"
+                            >
+                                <Button
+                                    onClick={handleStart}
+                                    variant="contained"
+                                    color="success"
+                                    sx={{ margin: 1 }}
+                                >
+                                    <PlayArrowIcon />
+                                </Button>
+                                <Button
+                                    onClick={handlePause}
+                                    variant="contained"
+                                    color="warning"
+                                    sx={{ margin: 1 }}
+                                >
+                                    <PauseIcon />
+                                </Button>
+                                <Button
+                                    onClick={handleReset}
+                                    variant="contained"
+                                    color="error"
+                                    sx={{ margin: 1 }}
+                                >
+                                    Resetar
+                                </Button>
+                            </Stack>
+                        </Stack>
 
                         <Stack flexGrow={1}>
                             <TeamField
@@ -209,6 +313,7 @@ export default function ControlPanel({
                                 teamLabel="TIME 2"
                                 setTeam={setTeam2}
                             />
+
                             <Stack
                                 flexDirection="row"
                                 margin={1}

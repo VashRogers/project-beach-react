@@ -26,6 +26,8 @@ function App() {
         set5: 0,
     });
 
+    const [time, setTime] = useState(0);
+
     return (
         <Box display="flex" flexDirection="column">
             <Scoreboard
@@ -39,6 +41,7 @@ function App() {
                 setTeam2Points={setTeam2Points}
                 team1Sets={team1Sets}
                 team2Sets={team2Sets}
+                time={time}
             />
             <ControlPanel
                 team1={team1}
@@ -53,6 +56,8 @@ function App() {
                 team2Sets={team2Sets}
                 setTeam1Sets={setTeam1Sets}
                 setTeam2Sets={setTeam2Sets}
+                time={time}
+                setTime={setTime}
             />
         </Box>
     );
