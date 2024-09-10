@@ -27,6 +27,7 @@ function App() {
     });
 
     const [time, setTime] = useState(0);
+    const [servingTeam, setServingTeam] = useState("team1");
 
     return (
         <Box display="flex" flexDirection="column">
@@ -42,6 +43,7 @@ function App() {
                 team1Sets={team1Sets}
                 team2Sets={team2Sets}
                 time={time}
+                servingTeam={servingTeam}
             />
             <ControlPanel
                 team1={team1}
@@ -58,6 +60,8 @@ function App() {
                 setTeam2Sets={setTeam2Sets}
                 time={time}
                 setTime={setTime}
+                servingTeam={servingTeam}
+                setServingTeam={setServingTeam}
             />
         </Box>
     );

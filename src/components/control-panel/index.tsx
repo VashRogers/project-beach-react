@@ -22,6 +22,8 @@ interface iControlPanelProps {
     setTeam2Sets: Dispatch<SetStateAction<teamSets>>;
     time: number;
     setTime: Dispatch<SetStateAction<number>>;
+    servingTeam: string;
+    setServingTeam: Dispatch<SetStateAction<string>>;
 }
 
 export default function ControlPanel({
@@ -39,6 +41,8 @@ export default function ControlPanel({
     setTeam2Sets,
     time,
     setTime,
+    servingTeam,
+    setServingTeam,
 }: iControlPanelProps) {
     const [team1Advantage, setTeam1Advantage] = useState(false);
     const [team2Advantage, setTeam2Advantage] = useState(false);
@@ -258,6 +262,18 @@ export default function ControlPanel({
                                 >
                                     Adc. Pontos
                                 </Button>
+
+                                <Button
+                                    onClick={() => setServingTeam("team1")} // Definir time 1 com saque
+                                    variant={
+                                        servingTeam === "team1"
+                                            ? "contained"
+                                            : "outlined"
+                                    }
+                                    color="primary"
+                                >
+                                    Saque TIME 1
+                                </Button>
                             </Stack>
                         </Stack>
 
@@ -342,6 +358,18 @@ export default function ControlPanel({
                                     }}
                                 >
                                     Adc. Pontos
+                                </Button>
+
+                                <Button
+                                    onClick={() => setServingTeam("team2")} // Definir time 2 com saque
+                                    variant={
+                                        servingTeam === "team2"
+                                            ? "contained"
+                                            : "outlined"
+                                    }
+                                    color="primary"
+                                >
+                                    Saque TIME 2
                                 </Button>
                             </Stack>
                         </Stack>
