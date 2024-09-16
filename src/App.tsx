@@ -3,6 +3,7 @@ import Scoreboard from "./components/scoreboard";
 import "./App.css";
 import ControlPanel from "./components/control-panel";
 import { useState } from "react";
+import { NewScoreboard } from "./components/new-scoreboard";
 function App() {
     const [team1, setTeam1] = useState("TIME 1");
     const [team2, setTeam2] = useState("TIME 2");
@@ -31,7 +32,7 @@ function App() {
 
     return (
         <Box display="flex" flexDirection="column">
-            <Scoreboard
+            {/* <Scoreboard
                 team1={team1}
                 team2={team2}
                 setTeam1={setTeam1}
@@ -44,7 +45,10 @@ function App() {
                 team2Sets={team2Sets}
                 time={time}
                 servingTeam={servingTeam}
-            />
+            /> */}
+
+            <NewScoreboard />
+
             <ControlPanel
                 team1={team1}
                 team2={team2}
