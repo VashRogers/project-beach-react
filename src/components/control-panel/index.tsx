@@ -3,7 +3,6 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { TeamField } from "./components/TeamField";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { teamSets } from "../scoreboard";
 import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
@@ -14,12 +13,12 @@ interface iControlPanelProps {
     setTeam2: Dispatch<SetStateAction<string>>;
     team1Points: string;
     setTeam1Points: Dispatch<SetStateAction<string>>;
-    team1Sets: teamSets;
-    setTeam1Sets: Dispatch<SetStateAction<teamSets>>;
+    team1Sets: number;
+    setTeam1Sets: Dispatch<SetStateAction<number>>;
     team2Points: string;
     setTeam2Points: Dispatch<SetStateAction<string>>;
-    team2Sets: teamSets;
-    setTeam2Sets: Dispatch<SetStateAction<teamSets>>;
+    team2Sets: number;
+    setTeam2Sets: Dispatch<SetStateAction<number>>;
     time: number;
     setTime: Dispatch<SetStateAction<number>>;
     servingTeam: string;
@@ -170,34 +169,12 @@ export default function ControlPanel({
     };
 
     const handleTeam1WinSet = () => {
-        if (team1Sets.set1 === 0) {
-            setTeam1Sets({ ...team1Sets, set1: 1 });
-        } else if (team1Sets.set2 === 0) {
-            setTeam1Sets({ ...team1Sets, set2: 1 });
-        } else if (team1Sets.set3 === 0) {
-            setTeam1Sets({ ...team1Sets, set3: 1 });
-        } else if (team1Sets.set4 === 0) {
-            setTeam1Sets({ ...team1Sets, set4: 1 });
-        } else if (team1Sets.set5 === 0) {
-            setTeam1Sets({ ...team1Sets, set5: 1 });
-        }
-
+        setTeam1Sets((prevSets) => prevSets + 1);
         resetPointsAndAdvantage();
     };
 
     const handleTeam2WinSet = () => {
-        if (team2Sets.set1 === 0) {
-            setTeam2Sets({ ...team2Sets, set1: 1 });
-        } else if (team2Sets.set2 === 0) {
-            setTeam2Sets({ ...team2Sets, set2: 1 });
-        } else if (team2Sets.set3 === 0) {
-            setTeam2Sets({ ...team2Sets, set3: 1 });
-        } else if (team2Sets.set4 === 0) {
-            setTeam2Sets({ ...team2Sets, set4: 1 });
-        } else if (team2Sets.set5 === 0) {
-            setTeam2Sets({ ...team2Sets, set5: 1 });
-        }
-
+        setTeam2Sets((prevSets) => prevSets + 1);
         resetPointsAndAdvantage();
     };
 
@@ -210,8 +187,8 @@ export default function ControlPanel({
 
     const resetAll = () => {
         resetPointsAndAdvantage();
-        setTeam1Sets({ set1: 0, set2: 0, set3: 0, set4: 0, set5: 0 });
-        setTeam2Sets({ set1: 0, set2: 0, set3: 0, set4: 0, set5: 0 });
+        setTeam1Sets(0);
+        setTeam2Sets(0);
     };
 
     return (
