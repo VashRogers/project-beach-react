@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import Scoreboard from "./components/scoreboard";
 import "./App.css";
 import ControlPanel from "./components/control-panel";
 import { useState } from "react";

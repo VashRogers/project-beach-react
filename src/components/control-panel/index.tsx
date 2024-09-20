@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { TeamField } from "./components/TeamField";
@@ -32,11 +33,9 @@ export default function ControlPanel({
     setTeam2,
     team1Points,
     setTeam1Points,
-    team1Sets,
     setTeam1Sets,
     team2Points,
     setTeam2Points,
-    team2Sets,
     setTeam2Sets,
     time,
     setTime,
@@ -48,7 +47,7 @@ export default function ControlPanel({
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        let timer: NodeJS.Timeout | undefined; // Inicializando com undefined
+        let timer: any // Inicializando com undefined
         if (isRunning) {
             timer = setInterval(() => {
                 setTime((prevTime) => prevTime + 1);
