@@ -1,5 +1,12 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
+import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import { Dispatch, SetStateAction } from "react";
+
+const BORDER_COLOR_SERVING = "#FFD700";
+const BORDER_COLOR_DEFAULT = "transparent";
+const BACKGROUND_TEAM_COLOR = "#A4CC2B";
+const BACKGROUND_SCORE_COLOR = "#FFFFFF";
+const FONT_COLOR_SCORE = "#002E6D";
 
 interface iNewScoreBoard {
     team1: string;
@@ -33,20 +40,18 @@ export function NewScoreboard({
         return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
     };
 
-    // Função auxiliar para determinar estilo de quem está servindo
-    const isServing = (team: string) => servingTeam === team ? "#FFD700" : "transparent"; // Cor de borda dourada para quem serve
-    
+    const isServing = (team: string) => servingTeam === team ? BORDER_COLOR_SERVING : BORDER_COLOR_DEFAULT;
+
     return (
         <Box
             sx={{
-                maxWidth: 600,
-                backgroundColor: "#002E6D",
+                width:"50rem",
+                backgroundColor: FONT_COLOR_SCORE,
                 color: "white",
                 padding: "16px",
                 borderRadius: "8px",
             }}
         >
-            {/* Rótulos para Pontos e Sets */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
                 <Box sx={{ width: "50px", textAlign: "center" }}>
                     <Typography variant="subtitle2" fontWeight="bold">
@@ -65,13 +70,13 @@ export function NewScoreboard({
                 {/* Seção de Pontos - Time 1 */}
                 <Box
                     sx={{
-                        backgroundColor: "#A4CC2B",
+                        backgroundColor: BACKGROUND_TEAM_COLOR,
                         padding: "8px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         width: "50px",
-                        border: `2px solid ${isServing(team1)}`, // Borda para indicar quem está servindo
+                        border: `2px solid ${isServing(team1)}`,
                     }}
                 >
                     <Typography variant="h6" fontWeight="bold">
@@ -83,18 +88,28 @@ export function NewScoreboard({
                     sx={{
                         padding: "8px",
                         flexGrow: 1,
+                        display: "flex",
+                        alignItems: "center",
                     }}
                 >
                     <Typography variant="h6" fontWeight="bold">
                         {team1}
                     </Typography>
+                    {servingTeam === "team1" && (
+                        <SportsTennisIcon
+                            sx={{
+                                marginLeft: "8px",
+                                color: BORDER_COLOR_SERVING,
+                            }}
+                        />
+                    )}
                 </Box>
 
                 <Box
                     sx={{
                         padding: "8px",
-                        backgroundColor: "#FFFFFF",
-                        color: "#002E6D",
+                        backgroundColor: BACKGROUND_SCORE_COLOR,
+                        color: FONT_COLOR_SCORE,
                         width: "50px",
                         textAlign: "center",
                     }}
@@ -105,19 +120,19 @@ export function NewScoreboard({
                 </Box>
             </Stack>
 
-            <Divider sx={{ backgroundColor: "#A4CC2B", marginY: "8px" }} />
+            <Divider sx={{ backgroundColor: BACKGROUND_TEAM_COLOR, marginY: "8px" }} />
 
             <Stack direction="row" alignItems="center" spacing={1}>
                 {/* Seção de Pontos - Time 2 */}
                 <Box
                     sx={{
-                        backgroundColor: "#A4CC2B",
+                        backgroundColor: BACKGROUND_TEAM_COLOR,
                         padding: "8px",
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
                         width: "50px",
-                        border: `2px solid ${isServing(team2)}`, // Borda para indicar quem está servindo
+                        border: `2px solid ${isServing(team2)}`,
                     }}
                 >
                     <Typography variant="h6" fontWeight="bold">
@@ -129,18 +144,28 @@ export function NewScoreboard({
                     sx={{
                         padding: "8px",
                         flexGrow: 1,
+                        display: "flex",
+                        alignItems: "center",
                     }}
                 >
                     <Typography variant="h6" fontWeight="bold">
                         {team2}
                     </Typography>
+                    {servingTeam === "team2" && (
+                        <SportsTennisIcon
+                            sx={{
+                                marginLeft: "8px",
+                                color: BORDER_COLOR_SERVING,
+                            }}
+                        />
+                    )}
                 </Box>
 
                 <Box
                     sx={{
                         padding: "8px",
-                        backgroundColor: "#FFFFFF",
-                        color: "#002E6D",
+                        backgroundColor: BACKGROUND_SCORE_COLOR,
+                        color: FONT_COLOR_SCORE,
                         width: "50px",
                         textAlign: "center",
                     }}
@@ -151,11 +176,11 @@ export function NewScoreboard({
                 </Box>
             </Stack>
 
-            <Divider sx={{ backgroundColor: "#A4CC2B", marginY: "8px" }} />
+            <Divider sx={{ backgroundColor: BACKGROUND_TEAM_COLOR, marginY: "8px" }} />
 
             <Box
                 sx={{
-                    backgroundColor: "#A4CC2B",
+                    backgroundColor: BACKGROUND_TEAM_COLOR,
                     padding: "8px",
                 }}
             >

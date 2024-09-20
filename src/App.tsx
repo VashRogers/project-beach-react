@@ -34,20 +34,23 @@ function App() {
                 servingTeam={servingTeam}
             /> */}
 
-            <NewScoreboard 
-                team1={team1}
-                team2={team2}
-                setTeam1={setTeam1}
-                setTeam2={setTeam2}
-                team1Points={team1Points}
-                team2Points={team2Points}
-                setTeam1Points={setTeam1Points}
-                setTeam2Points={setTeam2Points}
-                team1Sets={team1Sets}
-                team2Sets={team2Sets}
-                time={time}
-                servingTeam={servingTeam}
-            />
+            <Box display="flex" justifyContent="center">
+
+                <NewScoreboard 
+                    team1={team1}
+                    team2={team2}
+                    setTeam1={setTeam1}
+                    setTeam2={setTeam2}
+                    team1Points={team1Points}
+                    team2Points={team2Points}
+                    setTeam1Points={setTeam1Points}
+                    setTeam2Points={setTeam2Points}
+                    team1Sets={team1Sets}
+                    team2Sets={team2Sets}
+                    time={time}
+                    servingTeam={servingTeam}
+                />
+            </Box>
 
             <ControlPanel
                 team1={team1}
