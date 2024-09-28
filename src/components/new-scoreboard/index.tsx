@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import SportsTennisIcon from '@mui/icons-material/SportsTennis';
 import { Dispatch, SetStateAction } from "react";
+import tennisIcon from "../../../public/tennisIcon.png"
 
 const BORDER_COLOR_SERVING = "#FFD700";
 const BORDER_COLOR_DEFAULT = "transparent";
@@ -21,6 +21,7 @@ interface iNewScoreBoard {
     team2Sets: number;
     time: number;
     servingTeam: string;
+    arenaMsg: string
 }
 
 export function NewScoreboard({
@@ -32,6 +33,7 @@ export function NewScoreboard({
     team2Sets,
     time,
     servingTeam,
+    arenaMsg
 }: iNewScoreBoard) {
 
     const formatTime = (seconds: number) => {
@@ -79,7 +81,7 @@ export function NewScoreboard({
                         border: `2px solid ${isServing(team1)}`,
                     }}
                 >
-                    <Typography variant="h6" fontWeight="bold">
+                    <Typography variant="h6" fontWeight="bold" fontSize={25}>
                         {team1Points}
                     </Typography>
                 </Box>
@@ -96,12 +98,7 @@ export function NewScoreboard({
                         {team1}
                     </Typography>
                     {servingTeam === "team1" && (
-                        <SportsTennisIcon
-                            sx={{
-                                marginLeft: "8px",
-                                color: BORDER_COLOR_SERVING,
-                            }}
-                        />
+                        <img src={tennisIcon} alt="" style={{ width: '50px', height: '50px' }}/>
                     )}
                 </Box>
 
@@ -135,7 +132,7 @@ export function NewScoreboard({
                         border: `2px solid ${isServing(team2)}`,
                     }}
                 >
-                    <Typography variant="h6" fontWeight="bold">
+                    <Typography variant="h6" fontWeight="bold" fontSize={25}>
                         {team2Points}
                     </Typography>
                 </Box>
@@ -152,12 +149,7 @@ export function NewScoreboard({
                         {team2}
                     </Typography>
                     {servingTeam === "team2" && (
-                        <SportsTennisIcon
-                            sx={{
-                                marginLeft: "8px",
-                                color: BORDER_COLOR_SERVING,
-                            }}
-                        />
+                        <img src={tennisIcon} alt="" style={{ width: '50px', height: '50px' }}/>
                     )}
                 </Box>
 
@@ -185,7 +177,7 @@ export function NewScoreboard({
                 }}
             >
                 <Typography variant="body1" fontWeight="bold">
-                    ARENA WOD BEACH TENNIS
+                    {arenaMsg}
                 </Typography>
             </Box>
 

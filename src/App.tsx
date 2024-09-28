@@ -15,6 +15,7 @@ function App() {
 
     const [time, setTime] = useState(0);
     const [servingTeam, setServingTeam] = useState("team1");
+    const [arenaMsg, setArenaMsg] = useState("...");
 
     return (
         <Box display="flex" flexDirection="column">
@@ -36,6 +37,7 @@ function App() {
             <Box display="flex" justifyContent="center">
 
                 <NewScoreboard 
+                    arenaMsg={arenaMsg}
                     team1={team1}
                     team2={team2}
                     setTeam1={setTeam1}
@@ -52,6 +54,8 @@ function App() {
             </Box>
 
             <ControlPanel
+                arenaMsg={arenaMsg}
+                setArenaMsg={setArenaMsg}
                 team1={team1}
                 team2={team2}
                 setTeam1={setTeam1}

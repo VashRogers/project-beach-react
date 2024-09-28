@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { TeamField } from "./components/TeamField";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -24,6 +24,8 @@ interface iControlPanelProps {
     setTime: Dispatch<SetStateAction<number>>;
     servingTeam: string;
     setServingTeam: Dispatch<SetStateAction<string>>;
+    setArenaMsg: Dispatch<SetStateAction<string>>;
+    arenaMsg: string;
 }
 
 export default function ControlPanel({
@@ -41,6 +43,8 @@ export default function ControlPanel({
     setTime,
     servingTeam,
     setServingTeam,
+    setArenaMsg,
+    arenaMsg
 }: iControlPanelProps) {
     const [team1Advantage, setTeam1Advantage] = useState(false);
     const [team2Advantage, setTeam2Advantage] = useState(false);
@@ -78,6 +82,7 @@ export default function ControlPanel({
     }, [team1Points, team2Points]);
 
     const handleTeam1Points = () => {
+        setServingTeam("team1")
         if (team1Points === "40" && team2Points === "40") {
             if (team1Advantage) {
                 handleTeam1WinSet();
@@ -123,6 +128,8 @@ export default function ControlPanel({
     };
 
     const handleTeam2Points = () => {
+        setServingTeam("team2")
+
         if (team2Points === "40" && team1Points === "40") {
             if (team2Advantage) {
                 handleTeam2WinSet();
@@ -254,6 +261,14 @@ export default function ControlPanel({
                         </Stack>
 
                         <Stack justifyContent="center">
+                            <TextField
+                                sx={{ mx:1 }}
+                                id="outlined-basic"
+                                label="Texto da arena"
+                                size="small"
+                                value={arenaMsg}
+                                onChange={(event) => setArenaMsg(event.target.value)}
+                            />
                             <Button
                                 onClick={resetAll}
                                 variant="contained"
@@ -265,6 +280,8 @@ export default function ControlPanel({
                             >
                                 Resetar Pontos e Sets
                             </Button>
+
+                            
                             {/* Controles do Relógio */}
                             <Stack
                                 flexDirection="row"
